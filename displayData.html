@@ -20,7 +20,7 @@
         </div>
     </nav>
     <div class="container mt-4">
-        <table id="table" class="table mx-auto">
+        <table id="studentTable" class="table mx-auto">
             <tr class="sticky-top custom-tr">
                 <th>Sl.no</th>
                 <th>ID</th>
@@ -29,7 +29,11 @@
                 <th>Rank</th>
             </tr>
         </table>
+        <a href="#" onclick="prevPage()" id="btnPrev">Previous</a>
+        <a href="#" onclick="nextPage()" id="btnNext">Next</a>
+        Page: <span id="pageNo"></span>
     </div>
+    
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
