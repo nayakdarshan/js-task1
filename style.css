@@ -1,14 +1,15 @@
 .table {
     /* outline: 1px #000000 solid; */
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
     border-radius: 5px;
     height: 50%;
 }
 
-th {
+.custom-head {
     font-weight: 900;
     border: 1px #000000 solid;
-    text-align: center;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 tr,
@@ -21,4 +22,38 @@ td {
     border: 1px #000000 solid;
     text-align: center;
     background-color: #f8f9fa;
+}
+
+thead {
+    text-align: center;
+}
+
+.custom-bgColor {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#PreValue {
+    border: none;
+    height: 25px;
+    border-radius: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#nextValue {
+    border: none;
+    height: 25px;
+    border-radius: 5px;
+    float: right;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.custom-btn {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    background-color: #00000073;
+    color: #ffffff;
+    margin-right: 1rem;
 }

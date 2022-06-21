@@ -1,73 +1,78 @@
-// console.log('hello');
+//fetch data and assign to studentDetails from studentData.json
+var studentDetails = (function() {
+    var studentDetails = null;
+    $.ajax({
+        'async': false,
+        'global': false,
+        'url': "studentData.json",
+        'dataType': "json",
+        'success': function(data) {
+            studentDetails = data;
+        }
+    });
+    return studentDetails;
+})();
+
+
+//iterating throughout the studentDetails and appending to the table
 $(document).ready(function() {
-    $.getJSON("studentData.json", function(data) {
-        var student = '';
-        var slno = 1;
-        //iterating throughout the objects
-        $.each(data, function(_key, value) {
-            student += '<tr>';
-            student += '<td>' + slno + '</td>';
-            student += '<td>' + value.id + '</td>';
-            student += '<td>' + value.name + '</td>';
-            student += '<td>' + value.class + '</td>';
-            student += '<td>' + value.rank + '</td>';
-            student += '</tr>';
+    var table = $('#myTable');
+
+    var max_size = studentDetails.length;
+    var min = 0;
+    var itemsPerPage = 5;
+    var limit = itemsPerPage;
+    var slno = 1;
+    appendStudentData(min, limit);
+
+
+    //function to append student details into the table
+    function appendStudentData(min, limit) {
+        // console.log(sta, limit);
+        // console.log(max_size);
+        for (var i = min; i < limit; i++) {
+            var tab = '<tr><td>' + studentDetails[i].id + "\n" + '</td><td>' + studentDetails[i].name + "\n" + '</td><td>' +
+                studentDetails[i].class + "\n" + '</td><td>' + studentDetails[i].rank;
+
+            $('#myTable').append(tab)
             slno++;
-        });
-        //inserting to the table
-        $('#studentTable').append(student);
+        }
+    }
+    //next button function
+    $('#nextValue').click(function() {
+        var next = limit;
+        if (max_size > next) {
+            def = limit + itemsPerPage;
+            limit = def
+            table.empty();
+            if (limit > max_size) {
+                def = max_size;
+            }
+
+            appendStudentData(next, def);
+
+        }
+    });
+    //previous button function
+    $('#PreValue').click(function() {
+        var pre = limit - (2 * itemsPerPage);
+        if (pre >= 0) {
+            limit = limit - itemsPerPage;
+            table.empty();
+            appendStudentData(pre, limit);
+        }
+    });
+    //pagination numbered buttons
+    var number = Math.round(studentDetails.length / itemsPerPage);
+
+    for (i = 0; i < number; i++) {
+        // var j = i + 1;
+        $('.nav').append('<button class="btn custom-btn">' + i + '</button>');
+    }
+    $('.nav button').click(function() {
+        var start = $(this).text();
+        table.empty();
+        limit = 5 * (parseInt(start) + 1) > max_size ? max_size : 5 * (parseInt(start) + 1)
+        appendStudentData(start * 5, limit);
     });
 });
-
-var currentPage = 1;
-var itemsPerPage = 5;
-var l = document.getElementById('studentTable').rows.length;
-function prevPage(){
-    if(currentPage > 1){
-        currentPage--;
-        changePage(currentPage);
-    }
-}
-function nextPage(){
-    if(currentPage < numOfPages()){
-        currentPage++;
-        changePage(currentPage);
-    }
-}
-function changePage(pageNo){
-    var btnPrev = document.getElementById('btnPrev');
-    var btnNext = document.getElementById('btnNext');
-    var student_Table = document.getElementById('studentTable');
-    // var pageInfo = document.getElementById('pageInfo');
-    var page_Span = document.getElementById('pageNo');
-    // var student = '';
-}
-
-if(pageNo < 1) pageNo = 1;
-if(pageNo > numOfPages()) pageNo = numOfPages();
-[...student_Table.getElementsByTagName('tr')].forEach((tr)=>{
-    tr.style.display='none'; // reset all to not display
-});
-student_Table.rows[0].style.display = ""; // display the title row
-
-for(var i = (pageNo -1) * itemsPerPage; i < (pageNo * itemsPerPage) && i < 1;i++ ){
-    student_Table.rows[i].style.display = "";
-}
-page_Span.innerHTML= pageNo + "/" + numOfPages();
-if(pageNo == 1){
-    btnPrev.style.visibility = "hidden";
-}else{
-    btnPrev.style.visibilty = "visible";
-}
-if(pageNo == numOfPages()){
-    btnNext.style.visibility = "hidden";
-}else{
-    btnNext.style.visibilty = "visible";
-}
-function numOfPages(){
-    return Math.ceil((l-1)  /itemsPerPage);
-}
-window.onload = function(){
-    changePage(1);
-};
-
