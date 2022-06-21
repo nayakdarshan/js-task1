@@ -21,6 +21,16 @@
             <span class="navbar-brand mb-0 h1 mx-auto">Student Details</span>
         </div>
     </nav>
+    <div class="container mb-3 mt-3">
+        <div class="dropdown float-end">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Sort</button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#" onclick="sortByRank()">By Rank</a></li>
+                <li><a class="dropdown-item" href="#" onclick="sortByAtoZ()">By Name (A-Z)</a></li>
+                <li><a class="dropdown-item" href="#" onclick="sortByZtoA()">By Name (Z-A)</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="table-responsive">
@@ -33,7 +43,7 @@
                             <th class=" text-center bg-dark text-light">Rank</th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="studentTable">
                     </tbody>
                 </table>
             </div>
@@ -47,16 +57,7 @@
                     <div class="col-1 w-auto h-100 me-auto ps-0">
                         <button class=" custom-bgColor" id="nextValue">Next</button>
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Dropdown button
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
         </div>

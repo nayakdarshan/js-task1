@@ -57,3 +57,15 @@ thead {
     color: #ffffff;
     margin-right: 1rem;
 }
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+    outline: none !important;
+    outline-offset: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
