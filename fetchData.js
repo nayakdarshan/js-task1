@@ -76,6 +76,7 @@ $(document).ready(function() {
         appendStudentData(start * 5, limit);
     });
 });
+//pure javascript functions
 //sorting by rank function
 function sortByRank() {
     var table, rows, switching, i, x, y, shouldSwitch;
@@ -149,29 +150,25 @@ function sortByZtoA() {
     }
 
 }
-//function to search name
-// function searchName(keyName) {
-//     document.getElementById('searchResultHeading').innerHTML = "Search Results:";
-//     var key = keyName;
-//     var flag = 0;
-//     // console.log(key);
-//     table = document.getElementById("studentTable");
-//     rows = table.rows;
-//     for (i = 0; i < (rows.length); i++) {
-//         x = rows[i].getElementsByClassName("studentFullName");
-//         if (key === x) {
-//             console.log("yes");
-//         }
-
-
-//     }
-// }
-
-$(document).ready(function() {
-    $("#searchField").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#studentTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
-});
+//search function
+function searchName() {
+    var input, filter, found, table, tr, td, i, j;
+    input = document.getElementById("searchField");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("studentTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                found = true;
+            }
+        }
+        if (found) {
+            tr[i].style.display = "";
+            found = false;
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}

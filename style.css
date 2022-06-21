@@ -69,3 +69,7 @@ thead {
     border: none !important;
     box-shadow: none !important;
 }
+
+.no-display {
+    visibility: hidden;
+}
