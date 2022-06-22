@@ -1,21 +1,128 @@
-//fetch data and assign to studentDetails from studentData.json
-var studentDetails = (function() {
-    var studentDetails = null;
-    $.ajax({
-        'async': false,
-        'global': false,
-        'url': "studentData.json",
-        'dataType': "json",
-        'success': function(data) {
-            studentDetails = data;
-        }
-    });
-    return studentDetails;
-})();
+var studentDetails = [{
+        "id": "A001",
+        "name": "Anil",
+        "class": "A-1",
+        "rank": "18"
+    },
+    {
+        "id": "A002",
+        "name": "Bhaskar",
+        "class": "A-1",
+        "rank": "12"
+    },
+    {
+        "id": "A003",
+        "name": "Chetan",
+        "class": "A-1",
+        "rank": "7"
+    },
+    {
+        "id": "A004",
+        "name": "Darshan",
+        "class": "A-1",
+        "rank": "19"
+    },
+    {
+        "id": "A005",
+        "name": "Elon",
+        "class": "A-1",
+        "rank": "2"
+    },
+    {
+        "id": "A006",
+        "name": "Felix",
+        "class": "A-1",
+        "rank": "13"
+    },
+    {
+        "id": "A007",
+        "name": "Ganesh",
+        "class": "A-1",
+        "rank": "1"
+    },
+    {
+        "id": "A008",
+        "name": "Hitesh",
+        "class": "A-1",
+        "rank": "4"
+    },
+    {
+        "id": "A009",
+        "name": "Ishwar",
+        "class": "A-1",
+        "rank": "9"
+    },
+    {
+        "id": "A010",
+        "name": "Jagan",
+        "class": "A-1",
+        "rank": "10"
+    },
+    {
+        "id": "A011",
+        "name": "Krishna",
+        "class": "A-1",
+        "rank": "11"
+    },
+    {
+        "id": "A012",
+        "name": "Leo",
+        "class": "A-1",
+        "rank": "15"
+    },
+    {
+        "id": "A013",
+        "name": "Manish",
+        "class": "A-1",
+        "rank": "5"
+    },
+    {
+        "id": "A014",
+        "name": "Neha",
+        "class": "A-1",
+        "rank": "20"
+    },
+    {
+        "id": "A015",
+        "name": "Omen",
+        "class": "A-1",
+        "rank": "17"
+    },
+    {
+        "id": "A016",
+        "name": "Prathvi",
+        "class": "A-1",
+        "rank": "16"
+    },
+    {
+        "id": "A017",
+        "name": "Ramesh",
+        "class": "A-1",
+        "rank": "14"
+    },
+    {
+        "id": "A018",
+        "name": "Suresh",
+        "class": "A-1",
+        "rank": "11"
+    },
+    {
+        "id": "A019",
+        "name": "Tom",
+        "class": "A-1",
+        "rank": "3"
+    },
+    {
+        "id": "A020",
+        "name": "Varun",
+        "class": "A-1",
+        "rank": "6"
+    }
+]
 
 
 //iterating throughout the studentDetails and appending to the table
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
     var table = $('#studentTable');
 
     var max_size = studentDetails.length;
@@ -28,16 +135,14 @@ $(document).ready(function() {
 
     //function to append student details into the table
     function appendStudentData(min, limit) {
-        // console.log(sta, limit);
-        // console.log(max_size);
         for (var i = min; i < limit; i++) {
-            var tab = '<tr><td>' + studentDetails[i].id + "\n" + '</td><td class="studentFullName">' + studentDetails[i].name + "\n" + '</td><td>' +
+            var tab = "<tr><td>" + studentDetails[i].id + "\n" + '</td><td class="studentFullName">' + studentDetails[i].name + "\n" + '</td><td>' +
                 studentDetails[i].class + "\n" + '</td><td class="studentRank">' + studentDetails[i].rank + '</td>';
 
-            $('#studentTable').append(tab)
-            slno++;
+            $('#studentTable').append(tab);
         }
     }
+
     //next button function
     $('#nextValue').click(function() {
         var next = limit;
@@ -66,19 +171,18 @@ $(document).ready(function() {
     var number = Math.round(studentDetails.length / itemsPerPage);
 
     for (i = 0; i < number; i++) {
-        // var j = i + 1;
-        $('.nav').append('<button class="btn custom-btn">' + i + '</button>');
+        $('.nav').append('<button class="btn custom-btn">' + (i + 1) + '</button>');
     }
     $('.nav button').click(function() {
-        var start = $(this).text();
+        // var start = $(this).text();
+        var start = ($(this).text()) - 1;
         table.empty();
         limit = 5 * (parseInt(start) + 1) > max_size ? max_size : 5 * (parseInt(start) + 1)
         appendStudentData(start * 5, limit);
     });
 });
-//pure javascript functions
-//sorting by rank function
-function sortByRank() {
+
+function sortByRankAsc() {
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("studentTable");
     switching = true;
@@ -102,7 +206,30 @@ function sortByRank() {
 
 }
 
-//sorting by A to Z function
+function sortByRankDsc() {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("studentTable");
+    switching = true;
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 0; i < (rows.length); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByClassName("studentRank")[0];
+            y = rows[(i + 1)].getElementsByClassName("studentRank")[0];
+            if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i], rows[i + 1]);
+            switching = true;
+        }
+    }
+
+}
+
 function sortByAtoZ() {
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("studentTable");
@@ -150,6 +277,8 @@ function sortByZtoA() {
     }
 
 }
+
+
 //search function
 function searchName() {
     var input, filter, found, table, tr, td, i, j;
